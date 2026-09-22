@@ -18,40 +18,48 @@
   #game { position:fixed; inset:0; display:block; z-index:1; }
   .hud  { position:fixed; inset:0; z-index:10; pointer-events:none; }
 
-  /* ============ 顶部任务条 ============ */
+  /* ============ 顶部任务条（数字超大超醒目） ============ */
   .topbar {
-    position:absolute; top:3vh; left:50%;
+    position:absolute; top:2.4vh; left:50%;
     transform:translateX(-50%);
-    display:flex; align-items:center; gap:.6em;
-    padding:1.3vh 2.6vw;
+    display:flex; align-items:center; gap:.45em;
+    padding:1.2vh 2.6vw;
     background:linear-gradient(180deg,#FFFFFF,#FFF6E8);
-    border:4.5px solid #FFFFFF;
+    border:6px solid #FFFFFF;
     border-radius:999px;
-    box-shadow:0 14px 38px rgba(180,140,95,.30),
-               0 0 0 8px rgba(255,255,255,.44);
-    font-size:clamp(17px,1.8vw,32px);
-    font-weight:800; color:#9A6B42;
+    box-shadow:0 18px 48px rgba(180,140,95,.36),
+               0 0 0 11px rgba(255,255,255,.5),
+               0 0 60px rgba(255,200,120,.5);
+    font-size:clamp(24px,2.9vw,54px);
+    font-weight:900; color:#8A5D36;
     letter-spacing:.04em; white-space:nowrap;
   }
   .mission-num {
     display:inline-flex; align-items:center; justify-content:center;
-    min-width:1.75em; height:1.75em; padding:0 .18em;
-    background:linear-gradient(180deg,#FFD98A,#FFB84D);
+    width:1.72em; height:1.72em;
+    background:linear-gradient(180deg,#FFD98A,#FFB13D);
     color:#FFFFFF;
-    border-radius:999px;
-    font-size:1.48em; font-weight:900;
-    text-shadow:0 3px 0 rgba(200,130,40,.55);
-    box-shadow:0 7px 0 #E89B33, 0 12px 26px rgba(240,170,70,.48);
-    animation:numBeat 1.9s ease-in-out infinite;
+    border-radius:50%;
+    font-size:2.15em; font-weight:900;
+    line-height:1;
+    text-shadow:0 6px 0 rgba(190,120,30,.6),
+                0 10px 22px rgba(190,120,30,.42);
+    box-shadow:0 12px 0 #E8942B,
+               0 20px 40px rgba(240,165,60,.55),
+               0 0 46px rgba(255,200,110,.85),
+               inset 0 -6px 14px rgba(190,120,30,.28),
+               inset 0 6px 14px rgba(255,255,255,.5);
+    border:5px solid #FFF3D8;
+    animation:numBeat 1.7s ease-in-out infinite;
   }
   @keyframes numBeat {
     0%,100% { transform:scale(1); }
-    50%     { transform:scale(1.08); }
+    50%     { transform:scale(1.12); }
   }
 
   /* ============ 积分牌 ============ */
   .score-board {
-    position:absolute; top:3vh; left:2.6vw;
+    position:absolute; top:2.8vh; left:2.4vw;
     display:flex; align-items:center; gap:.45em;
     padding:1.2vh 1.6vw;
     background:linear-gradient(180deg,#FFFFFF,#FFF3E2);
@@ -71,29 +79,29 @@
 
   /* ============ 完成按钮 ============ */
   .btn-finish {
-    position:absolute; left:50%; bottom:3.2vh;
+    position:absolute; left:50%; bottom:3vh;
     transform:translateX(-50%);
-    padding:1.7vh 4.4vw;
-    font-size:clamp(21px,2.15vw,38px);
+    padding:1.7vh 4.6vw;
+    font-size:clamp(21px,2.2vw,40px);
     font-weight:900; font-family:inherit;
     color:#fff;
     letter-spacing:.16em; text-indent:.16em;
     background:linear-gradient(180deg,#7FE0B4,#3FC894);
-    border:5px solid rgba(255,255,255,.9);
+    border:5px solid rgba(255,255,255,.92);
     border-radius:999px;
-    box-shadow:0 10px 0 #2FA576, 0 18px 38px rgba(60,190,140,.44);
+    box-shadow:0 11px 0 #2FA576, 0 20px 42px rgba(60,190,140,.46);
     cursor:pointer; pointer-events:auto;
     transition:transform .12s, box-shadow .12s, filter .2s;
   }
   .btn-finish:active {
     transform:translateX(-50%) translateY(7px);
-    box-shadow:0 3px 0 #2FA576, 0 8px 16px rgba(60,190,140,.35);
+    box-shadow:0 4px 0 #2FA576, 0 8px 16px rgba(60,190,140,.35);
   }
   .btn-finish:disabled {
     filter:grayscale(.65) opacity(.55);
     cursor:not-allowed;
     transform:translateX(-50%);
-    box-shadow:0 10px 0 #B8B8B8;
+    box-shadow:0 11px 0 #B8B8B8;
   }
 
   /* ============ 结果面板 ============ */
@@ -172,7 +180,7 @@
     position:absolute;
     font-size:clamp(22px,2.2vw,40px);
     transform:translate(-50%,-50%);
-    animation:starFly 1.6s cubic-bezier(.15,.9,.3,1) forwards;
+    animation:starFly 1.7s cubic-bezier(.15,.9,.3,1) forwards;
     will-change:transform,opacity;
   }
   @keyframes starFly {
@@ -250,8 +258,8 @@
   /* ==================== 全局变量 ==================== */
   let W = 0, H = 0, DPR = 1;
 
-  let groundR = 44;   // 草地豆子半径（偏大）
-  let basketR = 30;   // 篮内豆子半径
+  let groundR = 42;
+  let basketR = 30;
 
   let basket = {
     x:0, topY:0, botY:0,
@@ -262,12 +270,13 @@
   let basketBeans = [];
   let clouds = [];
   let decors = [];
-  let ant = { x:0, y:0, phase:0 };
+  let ants = [];
 
   let target = 5;
   let score  = 0;
   let phase  = 'play';
   let time   = 0;
+  let countPulse = 0;
 
   /* ==================== 工具函数 ==================== */
   function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
@@ -289,25 +298,21 @@
     canvas.style.height = H + 'px';
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
-    /* 豆子半径：明显偏大 */
     const m = Math.min(W, H);
-    groundR = clamp(m * 0.044, 30, 58);
+    groundR = clamp(m * 0.042, 30, 52);
     basketR = groundR * 0.66;
 
-    /* 篮子几何 */
+    /* 篮子几何（略下移，给上方大数字留空间） */
     basket.x     = W * 0.805;
-    basket.topY  = H * 0.475;
-    basket.botY  = H * 0.885;
-    basket.topW  = W * 0.305;
-    basket.botW  = W * 0.235;
+    basket.topY  = H * 0.525;
+    basket.botY  = H * 0.905;
+    basket.topW  = W * 0.300;
+    basket.botW  = W * 0.232;
     basket.rx    = basket.topW / 2;
     basket.ry    = basket.rx * 0.30;
 
-    /* 蚂蚁位置 */
-    ant.x = W * 0.075;
-    ant.y = H * 0.855;
-
     buildDecor();
+    buildAnts();
   }
 
   /* ==================== 背景装饰 ==================== */
@@ -318,16 +323,16 @@
     for (let i = 0; i < 5; i++) {
       clouds.push({
         x: Math.random() * (W + 500) - 250,
-        y: H * rand(0.05, 0.23),
+        y: H * rand(0.04, 0.20),
         s: rand(0.55, 1.05),
         speed: rand(7, 17),
         alpha: rand(0.62, 0.92)
       });
     }
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 52; i++) {
       const px = Math.random() * W;
-      const py = H * rand(0.52, 0.99);
+      const py = H * rand(0.50, 0.99);
       decors.push({
         x: px, y: py,
         type: Math.random() < 0.70 ? 'grass' : 'flower',
@@ -339,33 +344,53 @@
     decors.sort(function (a, b) { return a.y - b.y; });
   }
 
+  /* ==================== 左下一群蚂蚁 ==================== */
+  function buildAnts() {
+    ants = [];
+    const n = 5;
+
+    for (let i = 0; i < n; i++) {
+      const baseX = W * (0.045 + i * 0.062);
+      ants.push({
+        x: baseX,
+        y: H * (0.875 + (i % 2) * 0.040),
+        scale: 0.62 + (i % 3) * 0.11,
+        phase: Math.random() * Math.PI * 2,
+        speed: rand(6, 13),
+        dir: i % 2 === 0 ? 1 : -1,
+        rangeMin: W * 0.025,
+        rangeMax: W * 0.335,
+        flip: 1
+      });
+    }
+  }
+
   /* ==================== 新一轮 ==================== */
   function newRound() {
     phase = 'play';
     beans = [];
     basketBeans = [];
     time = 0;
+    countPulse = 0;
 
-    /* 总豆子数 6~9，目标数字 2 ~ 总数-1 */
     const total = 6 + Math.floor(Math.random() * 4);
     target = 2 + Math.floor(Math.random() * (total - 2));
     if (target >= total) target = total - 1;
     targetNumEl.textContent = target;
 
-    /* 撒豆区域：左侧宽阔草地，避开右侧篮子 */
     const r = groundR;
     const area = {
-      x0: W * 0.055 + r,
-      x1: W * 0.615 - r,
-      y0: H * 0.525 + r,
+      x0: W * 0.050 + r,
+      x1: W * 0.625 - r,
+      y0: H * 0.475 + r,
       y1: H * 0.815 - r
     };
 
-    let minD = r * 2.55;
+    let minD = r * 2.45;
     const pts = [];
     let tries = 0;
 
-    while (pts.length < total && tries < 12000) {
+    while (pts.length < total && tries < 14000) {
       tries++;
       const x = rand(area.x0, area.x1);
       const y = rand(area.y0, area.y1);
@@ -376,7 +401,7 @@
         if (dx * dx + dy * dy < minD * minD) { ok = false; break; }
       }
       if (ok) pts.push({ x: x, y: y });
-      else if (tries % 400 === 0) minD = Math.max(minD * 0.9, r * 2.0);
+      else if (tries % 400 === 0) minD = Math.max(minD * 0.9, r * 1.95);
     }
     while (pts.length < total) {
       pts.push({ x: rand(area.x0, area.x1), y: rand(area.y0, area.y1) });
@@ -403,7 +428,6 @@
       });
     }
 
-    /* UI 复位 */
     resultPanel.classList.remove('show');
     finishBtn.disabled = false;
   }
@@ -411,7 +435,7 @@
   /* ==================== 篮内槽位 ==================== */
   function getSlotPos(i, n) {
     const maxPerRow = 5;
-    const usable = basket.rx * 1.62;
+    const usable = basket.rx * 1.55;
     const spacing = Math.min(basketR * 2.45, usable / maxPerRow);
 
     const row = Math.floor(i / maxPerRow);
@@ -421,7 +445,7 @@
 
     return {
       x: startX + col * spacing,
-      y: basket.topY + basket.ry * 0.32 - row * basketR * 1.90
+      y: basket.topY + basket.ry * 0.34 - row * basketR * 1.88
     };
   }
 
@@ -435,13 +459,14 @@
     b.flying   = true;
     b.inBasket = true;
     b.t        = 0;
-    b.fx = b.x;   b.fy = b.y;
+    b.fx = b.x;    b.fy = b.y;
     b.tx = slot.x; b.ty = slot.y;
     b.rFrom = b.r;
     b.rTo   = basketR;
     b.flash = 1;
 
     basketBeans.push(b);
+    countPulse = 1;
   }
 
   function unloadBean(b) {
@@ -456,13 +481,14 @@
     b.y = b.gy;
     b.scale = 0.45;
     b.flash = 1;
+
+    countPulse = 1;
   }
 
   /* ==================== 完成判定 ==================== */
   function checkFinish() {
     if (phase !== 'play') return;
 
-    /* 有豆子还在飞行 → 等它落定 */
     for (let i = 0; i < basketBeans.length; i++) {
       if (basketBeans[i].flying) return;
     }
@@ -498,9 +524,9 @@
   /* ==================== 特效 ==================== */
   function burstStars() {
     const cx = W / 2, cy = H * 0.44;
-    const icons = ['⭐', '✨', '🌟', '💫', '🎊', '🫘'];
+    const icons = ['⭐', '✨', '🌟', '💫', '🎊', '🫘', '🐜'];
 
-    for (let i = 0; i < 44; i++) {
+    for (let i = 0; i < 46; i++) {
       const el = document.createElement('div');
       el.className = 'fx-star';
       el.textContent = icons[i % icons.length];
@@ -508,7 +534,7 @@
       el.style.top  = cy + 'px';
 
       const ang  = Math.random() * Math.PI * 2;
-      const dist = rand(150, Math.min(W, H) * 0.56);
+      const dist = rand(150, Math.min(W, H) * 0.58);
 
       el.style.setProperty('--tx', (Math.cos(ang) * dist).toFixed(1) + 'px');
       el.style.setProperty('--ty', (Math.sin(ang) * dist).toFixed(1) + 'px');
@@ -516,7 +542,7 @@
       el.style.animationDelay = (Math.random() * 0.16).toFixed(2) + 's';
 
       fxLayer.appendChild(el);
-      setTimeout(function () { el.remove(); }, 2400);
+      setTimeout(function () { el.remove(); }, 2500);
     }
   }
 
@@ -535,20 +561,28 @@
   function update(dt) {
     time += dt;
 
-    /* 云朵飘动 */
     for (let i = 0; i < clouds.length; i++) {
       const c = clouds[i];
       c.x += c.speed * dt;
       if (c.x > W + 320) {
         c.x = -320;
-        c.y = H * rand(0.05, 0.23);
+        c.y = H * rand(0.04, 0.20);
       }
     }
 
-    /* 蚂蚁触角摆动 */
-    ant.phase += dt * 2.2;
+    for (let i = 0; i < ants.length; i++) {
+      const a = ants[i];
+      a.x += a.dir * a.speed * dt;
 
-    /* 豆子出现动画 & 闪光衰减 */
+      if (a.x > a.rangeMax) { a.x = a.rangeMax; a.dir = -1; }
+      if (a.x < a.rangeMin) { a.x = a.rangeMin; a.dir = 1; }
+
+      a.phase += dt * 6.2;
+      a.flip = a.dir >= 0 ? 1 : -1;
+    }
+
+    if (countPulse > 0) countPulse = Math.max(0, countPulse - dt * 2.8);
+
     for (let i = 0; i < beans.length; i++) {
       const b = beans[i];
       const st = clamp((time - b.spawnDelay) / 0.52, 0, 1);
@@ -556,7 +590,6 @@
       if (b.flash > 0) b.flash = Math.max(0, b.flash - dt * 2.4);
     }
 
-    /* 篮中豆子：飞行 / 排列 */
     const n = basketBeans.length;
     for (let i = 0; i < n; i++) {
       const b = basketBeans[i];
@@ -587,7 +620,6 @@
       }
     }
 
-    /* 放回草地的豆子，半径恢复 */
     for (let i = 0; i < beans.length; i++) {
       const b = beans[i];
       if (!b.inBasket && Math.abs(b.r - groundR) > 0.5) {
@@ -607,10 +639,9 @@
   }
 
   function drawSun() {
-    const sx = W * 0.115, sy = H * 0.135;
+    const sx = W * 0.105, sy = H * 0.125;
     const r = Math.min(W, H) * 0.056;
 
-    /* 光晕 */
     const gg = ctx.createRadialGradient(sx, sy, r * 0.6, sx, sy, r * 4.4);
     gg.addColorStop(0,   'rgba(255,232,150,0.55)');
     gg.addColorStop(0.4, 'rgba(255,236,170,0.18)');
@@ -620,7 +651,6 @@
     ctx.arc(sx, sy, r * 4.4, 0, Math.PI * 2);
     ctx.fill();
 
-    /* 太阳光条 */
     ctx.save();
     ctx.translate(sx, sy);
     ctx.rotate(time * 0.12);
@@ -636,7 +666,6 @@
     }
     ctx.restore();
 
-    /* 太阳本体 */
     const sg = ctx.createRadialGradient(sx - r * 0.3, sy - r * 0.3, 0, sx, sy, r);
     sg.addColorStop(0,   '#FFF7CC');
     sg.addColorStop(0.6, '#FFE38C');
@@ -646,7 +675,6 @@
     ctx.arc(sx, sy, r, 0, Math.PI * 2);
     ctx.fill();
 
-    /* 表情 */
     ctx.fillStyle = 'rgba(190,140,50,0.72)';
     ctx.beginPath();
     ctx.arc(sx - r * 0.34, sy - r * 0.10, r * 0.105, 0, Math.PI * 2);
@@ -712,15 +740,15 @@
   }
 
   function drawGround() {
-    drawHill(H * 0.415, H * 0.030, '#CDEBB6', 0.9, 0.0035);
-    drawHill(H * 0.470, H * 0.026, '#AEDD90', 2.4, 0.0048);
-    drawHill(H * 0.520, H * 0.022, '#93CE7A', 4.1, 0.0058);
+    drawHill(H * 0.400, H * 0.030, '#CDEBB6', 0.9, 0.0035);
+    drawHill(H * 0.455, H * 0.026, '#AEDD90', 2.4, 0.0048);
+    drawHill(H * 0.505, H * 0.022, '#93CE7A', 4.1, 0.0058);
 
-    const g = ctx.createLinearGradient(0, H * 0.53, 0, H);
+    const g = ctx.createLinearGradient(0, H * 0.52, 0, H);
     g.addColorStop(0, 'rgba(147,206,122,0)');
     g.addColorStop(1, 'rgba(110,175,92,0.44)');
     ctx.fillStyle = g;
-    ctx.fillRect(0, H * 0.53, W, H * 0.47);
+    ctx.fillRect(0, H * 0.52, W, H * 0.48);
   }
 
   function drawDecor() {
@@ -770,33 +798,31 @@
     }
   }
 
-  /* ==================== 可爱小蚂蚁 ==================== */
-  function drawAnt() {
-    const x = ant.x;
-    const y = ant.y + Math.sin(time * 1.6) * 3;
-    const s = Math.min(W, H) * 0.00055 + 0.55;
-    const wob = Math.sin(ant.phase) * 0.18;
+  /* ==================== 单只小蚂蚁 ==================== */
+  function drawOneAnt(a) {
+    const baseS = Math.min(W, H) / 900;
+    const s = a.scale * baseS * 1.05;
+
+    const bodyY = a.y + Math.sin(time * 2.0 + a.phase * 0.1) * 2.6;
+    const wob   = Math.sin(a.phase) * 0.22;
 
     ctx.save();
-    ctx.translate(x, y);
-    ctx.scale(s, s);
+    ctx.translate(a.x, bodyY);
+    ctx.scale(s * a.flip, s);
 
-    /* 影子 */
     ctx.beginPath();
-    ctx.ellipse(0, 22, 34, 9, 0, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(96,140,72,0.22)';
-    ctx.filter = 'blur(5px)';
+    ctx.ellipse(0, 22, 34, 8.5, 0, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(96,140,72,0.24)';
+    ctx.filter = 'blur(4px)';
     ctx.fill();
     ctx.filter = 'none';
 
-    /* 腿 */
     ctx.strokeStyle = '#3E2A1E';
     ctx.lineWidth = 3.4;
     ctx.lineCap = 'round';
-    const legPhase = ant.phase * 2.2;
     for (let i = 0; i < 3; i++) {
       const bx = -14 + i * 14;
-      const sw = Math.sin(legPhase + i * 1.4) * 3.5;
+      const sw = Math.sin(a.phase * 1.8 + i * 1.4) * 3.6;
       ctx.beginPath();
       ctx.moveTo(bx, 6);
       ctx.lineTo(bx - 5, 18 + sw);
@@ -807,11 +833,10 @@
       ctx.stroke();
     }
 
-    /* 身体 */
     const bodyParts = [
-      { x: -18, y: 2, rx: 11, ry: 10 },
-      { x: 0,   y: -2, rx: 12, ry: 11 },
-      { x: 19,  y: -6, rx: 13, ry: 12 }
+      { x: -19, y: 2,  rx: 11.5, ry: 10.5 },
+      { x: 0,   y: -2, rx: 12.5, ry: 11.5 },
+      { x: 19,  y: -6, rx: 13.5, ry: 12.5 }
     ];
     for (let i = 0; i < bodyParts.length; i++) {
       const p = bodyParts[i];
@@ -824,7 +849,6 @@
       ctx.fill();
     }
 
-    /* 触角 */
     ctx.strokeStyle = '#3E2A1E';
     ctx.lineWidth = 2.6;
     ctx.beginPath();
@@ -842,7 +866,6 @@
     ctx.fillStyle = '#3E2A1E';
     ctx.fill();
 
-    /* 眼睛 */
     ctx.beginPath();
     ctx.arc(22, -9, 3.4, 0, Math.PI * 2);
     ctx.arc(30, -7, 3.4, 0, Math.PI * 2);
@@ -855,14 +878,19 @@
     ctx.fillStyle = '#241812';
     ctx.fill();
 
-    /* 腮红 */
     ctx.beginPath();
     ctx.arc(20, -2, 3.4, 0, Math.PI * 2);
     ctx.arc(32, 0, 3.4, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(255,150,140,0.42)';
+    ctx.fillStyle = 'rgba(255,150,140,0.45)';
     ctx.fill();
 
     ctx.restore();
+  }
+
+  function drawAnts() {
+    for (let i = 0; i < ants.length; i++) {
+      drawOneAnt(ants[i]);
+    }
   }
 
   /* ==================== 篮子绘制 ==================== */
@@ -874,7 +902,6 @@
     const ry = basket.ry;
     const botHalf = basket.botW / 2;
 
-    /* 地面阴影 */
     ctx.save();
     ctx.beginPath();
     ctx.ellipse(cx, botY + ry * 0.4, botHalf * 1.18, ry * 0.76, 0, 0, Math.PI * 2);
@@ -883,7 +910,6 @@
     ctx.fill();
     ctx.restore();
 
-    /* 篮身 */
     ctx.beginPath();
     ctx.moveTo(cx - rx, topY);
     ctx.bezierCurveTo(
@@ -907,7 +933,6 @@
     ctx.fillStyle = bg;
     ctx.fill();
 
-    /* 编织纹理 */
     ctx.save();
     ctx.clip();
 
@@ -934,7 +959,6 @@
     }
     ctx.restore();
 
-    /* 篮口内壁 */
     ctx.beginPath();
     ctx.ellipse(cx, topY, rx, ry, 0, 0, Math.PI * 2);
     ctx.fillStyle = '#7A5230';
@@ -948,7 +972,6 @@
     ctx.fillStyle = ig;
     ctx.fill();
 
-    /* 篮口边缘 */
     ctx.beginPath();
     ctx.ellipse(cx, topY, rx, ry, 0, 0, Math.PI * 2);
     ctx.strokeStyle = '#B57F42';
@@ -960,33 +983,100 @@
     ctx.strokeStyle = 'rgba(255,235,200,0.58)';
     ctx.lineWidth = Math.max(2.2, rx * 0.019);
     ctx.stroke();
+  }
 
-    /* 篮子上的标签（显示已放入数量） */
-    const labelY = topY - ry - Math.min(W, H) * 0.052;
-    const labelR = Math.min(W, H) * 0.042;
-    const bx = cx;
-    const by = labelY + Math.sin(time * 1.8) * 3;
+  /* ==================== 篮子上的超大数字（醒目） ==================== */
+  function drawBasketBadge() {
+    const baseR = Math.min(W, H) * 0.072;   // 加大
+    const pulse = 1 + countPulse * 0.28;
+    const r = baseR * pulse;
 
+    const bx = basket.x;
+    const by = basket.topY - basket.ry - baseR * 1.02;
+
+    /* 外圈金色光晕（加强） */
+    const halo = ctx.createRadialGradient(bx, by, r * 0.5, bx, by, r * 2.3);
+    halo.addColorStop(0,   'rgba(255,205,120,0.55)');
+    halo.addColorStop(0.5, 'rgba(255,210,130,0.24)');
+    halo.addColorStop(1,   'rgba(255,214,140,0)');
+    ctx.fillStyle = halo;
     ctx.beginPath();
-    ctx.arc(bx, by, labelR, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(255,255,255,0.95)';
-    ctx.shadowColor = 'rgba(180,140,95,0.35)';
-    ctx.shadowBlur = 16;
+    ctx.arc(bx, by, r * 2.3, 0, Math.PI * 2);
+    ctx.fill();
+
+    /* 底板圆：暖白渐变 */
+    ctx.beginPath();
+    ctx.arc(bx, by, r, 0, Math.PI * 2);
+    const g = ctx.createRadialGradient(bx - r * 0.3, by - r * 0.38, r * 0.08, bx, by, r);
+    g.addColorStop(0,   '#FFFFFF');
+    g.addColorStop(0.55,'#FFF7E6');
+    g.addColorStop(1,   '#FFE0B4');
+    ctx.fillStyle = g;
+    ctx.shadowColor = 'rgba(200,145,80,0.5)';
+    ctx.shadowBlur = 34;
     ctx.fill();
     ctx.shadowBlur = 0;
 
+    /* 金边（加粗） */
     ctx.beginPath();
-    ctx.arc(bx, by, labelR * 0.84, 0, Math.PI * 2);
-    ctx.strokeStyle = '#FFD98A';
-    ctx.lineWidth = 2.6;
+    ctx.arc(bx, by, r * 0.90, 0, Math.PI * 2);
+    ctx.strokeStyle = '#FFC157';
+    ctx.lineWidth = Math.max(4.5, r * 0.11);
     ctx.stroke();
 
-    ctx.fillStyle = '#C08A4E';
-    ctx.font = '900 ' + (labelR * 1.05).toFixed(0) +
-               'px "Yuanti SC","PingFang SC","Microsoft YaHei",sans-serif';
+    /* 白色外圈 */
+    ctx.beginPath();
+    ctx.arc(bx, by, r * 0.997, 0, Math.PI * 2);
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.lineWidth = Math.max(4, r * 0.10);
+    ctx.stroke();
+
+    /* 内圈细金线 */
+    ctx.beginPath();
+    ctx.arc(bx, by, r * 0.78, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255,200,120,0.6)';
+    ctx.lineWidth = Math.max(1.8, r * 0.035);
+    ctx.stroke();
+
+    /* 超大数字：橙红渐变 + 描边 */
+    const numFont = '900 ' + (r * 1.55).toFixed(0) +
+                    'px "Yuanti SC","PingFang SC","Microsoft YaHei",sans-serif';
+    ctx.font = numFont;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(String(basketBeans.length), bx, by + labelR * 0.06);
+
+    const numGrad = ctx.createLinearGradient(bx, by - r * 0.7, bx, by + r * 0.7);
+    numGrad.addColorStop(0,   '#FF8A47');
+    numGrad.addColorStop(0.5, '#F26A2E');
+    numGrad.addColorStop(1,   '#D9501B');
+
+    /* 白色外描边 */
+    ctx.lineWidth = Math.max(6, r * 0.16);
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.lineJoin = 'round';
+    ctx.strokeText(String(basketBeans.length), bx, by + r * 0.06);
+
+    /* 阴影 */
+    ctx.shadowColor = 'rgba(200,90,30,0.5)';
+    ctx.shadowBlur = 16;
+    ctx.shadowOffsetY = 4;
+
+    /* 数字本体 */
+    ctx.fillStyle = numGrad;
+    ctx.fillText(String(basketBeans.length), bx, by + r * 0.06);
+
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
+
+    /* 小字标签 */
+    ctx.font = '900 ' + (baseR * 0.46).toFixed(0) +
+               'px "Yuanti SC","PingFang SC","Microsoft YaHei",sans-serif';
+    ctx.lineWidth = Math.max(4, baseR * 0.10);
+    ctx.strokeStyle = 'rgba(255,255,255,0.95)';
+    ctx.strokeText('篮中豆子', bx, by + r + baseR * 0.72);
+
+    ctx.fillStyle = '#B87A42';
+    ctx.fillText('篮中豆子', bx, by + r + baseR * 0.72);
   }
 
   /* ==================== 芸豆路径 ==================== */
@@ -1024,7 +1114,6 @@
     ctx.rotate(rot);
     ctx.scale(b.scale, b.scale);
 
-    /* 地面阴影 */
     if (!b.inBasket) {
       ctx.beginPath();
       ctx.ellipse(0, h * 0.88, w * 0.94, h * 0.30, 0, 0, Math.PI * 2);
@@ -1036,7 +1125,6 @@
 
     beanPath(w, h);
 
-    /* 光晕 */
     if (b.flash > 0) {
       ctx.shadowColor = 'rgba(255,235,160,' + b.flash.toFixed(2) + ')';
       ctx.shadowBlur = 38 * b.flash;
@@ -1058,7 +1146,6 @@
     ctx.shadowOffsetY = 0;
     ctx.shadowColor = 'transparent';
 
-    /* 内部高光 */
     ctx.save();
     ctx.clip();
 
@@ -1080,13 +1167,11 @@
 
     ctx.restore();
 
-    /* 轮廓 */
     beanPath(w, h);
     ctx.strokeStyle = 'rgba(168,122,72,0.55)';
     ctx.lineWidth = Math.max(1.4, w * 0.055);
     ctx.stroke();
 
-    /* 豆脐 */
     ctx.beginPath();
     ctx.moveTo(w * 0.25, -h * 0.54);
     ctx.quadraticCurveTo(w * 0.62, 0, w * 0.25, h * 0.54);
@@ -1095,7 +1180,6 @@
     ctx.lineCap = 'round';
     ctx.stroke();
 
-    /* 眼睛 */
     const eyeY  = -h * 0.05;
     const eyeR  = w * 0.115;
     const eyeDX = w * 0.245;
@@ -1112,14 +1196,12 @@
     ctx.fillStyle = 'rgba(255,255,255,0.96)';
     ctx.fill();
 
-    /* 腮红 */
     ctx.beginPath();
     ctx.arc(-w * 0.52, eyeY + h * 0.20, w * 0.155, 0, Math.PI * 2);
     ctx.arc( w * 0.56, eyeY + h * 0.20, w * 0.155, 0, Math.PI * 2);
     ctx.fillStyle = 'rgba(255,158,148,0.44)';
     ctx.fill();
 
-    /* 小嘴 */
     ctx.beginPath();
     ctx.arc(0, eyeY + h * 0.15, w * 0.14, 0.14 * Math.PI, 0.86 * Math.PI);
     ctx.strokeStyle = 'rgba(112,74,44,0.62)';
@@ -1137,19 +1219,20 @@
     drawClouds();
     drawGround();
     drawDecor();
-    drawAnt();
 
-    /* 篮中的豆子先画（位于篮口下方） */
+    drawAnts();
+
     for (let i = 0; i < basketBeans.length; i++) {
       drawBean(basketBeans[i]);
     }
 
     drawBasket();
 
-    /* 草地上的豆子 */
     for (let i = 0; i < beans.length; i++) {
       if (!beans[i].inBasket) drawBean(beans[i]);
     }
+
+    drawBasketBadge();
   }
 
   /* ==================== 主循环 ==================== */
@@ -1174,17 +1257,15 @@
     const mx = e.clientX - rect.left;
     const my = e.clientY - rect.top;
 
-    /* 优先：点击篮中豆子 → 放回草地 */
     for (let i = basketBeans.length - 1; i >= 0; i--) {
       const b = basketBeans[i];
       if (b.flying) continue;
-      if (Math.hypot(mx - b.x, my - b.y) < b.r * 1.45) {
+      if (Math.hypot(mx - b.x, my - b.y) < b.r * 1.5) {
         unloadBean(b);
         return;
       }
     }
 
-    /* 其次：点击草地豆子 → 搬进篮子 */
     for (let i = beans.length - 1; i >= 0; i--) {
       const b = beans[i];
       if (b.inBasket || b.flying) continue;
@@ -1192,7 +1273,7 @@
       const by = b.y + Math.sin(time * 1.7 + b.phase) * b.bob;
       const bx = b.x + Math.cos(time * 1.2 + b.phase) * b.bob * 0.55;
 
-      if (Math.hypot(mx - bx, my - by) < b.r * 1.5) {
+      if (Math.hypot(mx - bx, my - by) < b.r * 1.55) {
         pickBean(b);
         return;
       }
